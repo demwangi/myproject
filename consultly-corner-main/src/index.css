@@ -1,0 +1,253 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 50% 99%;
+    --foreground: 210 50% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 50% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 50% 15%;
+
+    --primary: 211 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 199 89% 48%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 100% 96%;
+    --accent-foreground: 210 100% 30%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 210 20% 91%;
+    --input: 210 20% 91%;
+    --ring: 211 100% 50%;
+
+    --radius: 1.1rem;
+  }
+
+  * {
+    @apply border-border;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12;
+  }
+
+  .hero-section {
+    @apply relative overflow-hidden bg-gradient-to-b from-white to-accent/50 rounded-3xl shadow-sm;
+  }
+
+  .card-hover {
+    @apply hover:shadow-lg hover:-translate-y-1;
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+  }
+
+  .glass-effect {
+    @apply bg-white/70 backdrop-blur-lg border border-white/20;
+  }
+
+  .doctor-card {
+    @apply relative overflow-hidden rounded-2xl bg-white border border-border shadow-sm;
+    height: 100%;
+    transform: translateZ(0);
+    will-change: auto;
+    contain: content;
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+
+  .doctor-card-hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .doctor-card-hover:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .section-title {
+    @apply text-3xl font-bold tracking-tight text-foreground mb-6;
+  }
+
+  .section-subtitle {
+    @apply text-xl font-medium text-muted-foreground mb-12;
+  }
+
+  .input-field {
+    @apply w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  /* Kenyan-inspired design elements */
+  .kenyan-card {
+    @apply rounded-xl bg-white border border-gray-100 shadow-sm overflow-hidden;
+    background-image: linear-gradient(120deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 100%);
+  }
+  
+  .kenyan-button {
+    @apply rounded-full bg-primary text-white font-medium px-5 py-3 transition-all;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .kenyan-button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 100, 255, 0.2);
+  }
+  
+  .kenyan-button.secondary {
+    @apply bg-accent text-primary;
+  }
+  
+  .kenyan-pattern {
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e73c3e' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 20L20 0h20v20L20 40H0V20z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  .kenyan-input {
+    @apply rounded-lg border border-gray-200 px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
+  }
+  
+  .sf-display {
+    font-feature-settings: "salt", "ss01", "ss02";
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Fix layout shift issues with will-change and contain properties */
+.will-change-auto {
+  will-change: auto;
+  contain: content;
+}
+
+/* Fix for image loading and contain layout shifts */
+.img-container {
+  position: relative;
+  overflow: hidden;
+  background-color: theme('colors.muted.DEFAULT');
+  height: 0;
+  padding-bottom: 66.67%; /* 3:2 aspect ratio */
+  transform: translateZ(0);
+  will-change: auto;
+  contain: strict;
+}
+
+.img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translateZ(0);
+  will-change: auto;
+  contain: strict;
+}
+
+/* Fix layout shift issues with stable dimensions */
+.stable-height {
+  min-height: 450px;
+  contain: size layout;
+}
+
+/* Animation for chat bubble */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+/* Kenya flag colors */
+.kenya-red {
+  color: #ea4335;
+}
+
+.kenya-green {
+  color: #007229;
+}
+
+.kenya-black {
+  color: #000000;
+}
+
+.kenya-red-bg {
+  background-color: #ea4335;
+}
+
+.kenya-green-bg {
+  background-color: #007229;
+}
+
+.kenya-black-bg {
+  background-color: #000000;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+}
+
+.sidebar-item {
+  @apply flex items-center px-4 py-3 text-gray-700 rounded-lg mb-1 transition-colors;
+}
+
+.sidebar-item:hover {
+  @apply bg-accent/50 text-primary;
+}
+
+.sidebar-item.active {
+  @apply bg-accent text-primary font-medium;
+}
+
+/* User profile avatar */
+.user-avatar {
+  @apply flex items-center justify-center rounded-full bg-primary text-white font-semibold;
+}
+
+/* Kenya-inspired patterns */
+.maasai-pattern {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ea4335' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.kente-pattern {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23007229' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
